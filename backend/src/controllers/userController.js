@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
     });
 
     res.status(201).json({
-      user: { id: user._id, username: user.username },
+      user: { id: user._id, username: user.userName },
       token,
     });
   } catch (error) {

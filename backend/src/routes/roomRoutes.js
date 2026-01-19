@@ -10,4 +10,4 @@ router.post('/', auth, createRoomLimiter, sanitizeRoom, createRoom)
 router.get("/nearby", getNearbyRooms)
 router.get("/:id", getRoom)
 
-export {roomRouter}
+export {router}

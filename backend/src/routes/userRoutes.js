@@ -8,4 +8,4 @@ const router = express.Router();
 router.post("/", sanitizeUser, createUser)
 router.put("/username", auth, sanitizeUser, updateUsername)
 
-export{userRouter}
+export { router };

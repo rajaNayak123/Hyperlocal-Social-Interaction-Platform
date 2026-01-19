@@ -9,4 +9,4 @@ const router = express.Router()
 router.post("/", auth, messageLimiter, sanitizeMessage, sendMessage)
 router.get("/room/:roomId", auth, getMessage)
 
-export {messageRoute}
+export {router}

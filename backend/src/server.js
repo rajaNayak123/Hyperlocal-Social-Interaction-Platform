@@ -11,9 +11,9 @@ dotenv.config();
 import {connectToDB} from "./config/database.js"
 import {socketService} from "./services/socketService.js"
 // imports the routes
-import { userRouter } from "../src/routes/userRoutes.js"
-import { roomRouter } from "./routes/roomRoutes.js"
-import {messageRoute} from "./routes/messageRoutes.js"
+import { router as userRouter } from "../src/routes/userRoutes.js"
+import { router as roomRouter } from "./routes/roomRoutes.js"
+import { router as messageRoute } from "./routes/messageRoutes.js"
 const app = express();
 const server = http.createServer(app)
 

@@ -5,8 +5,9 @@ const sanitizeUser = [
     .trim()
     .escape()
     .isLength({ min: 3, max: 20 })
+    .withMessage("Username must be between 3 and 20 characters")
     .matches(/^[a-zA-Z0-9_]+$/)
-    .withMessage("Username must be 3-20 alphanumeric characters"),
+    .withMessage("Username can only contain alphanumeric characters and underscores"),
 
   (req, res, next) => {
     const errors = validationResult(req);

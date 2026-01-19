@@ -43,7 +43,7 @@ const updateUsername = async (req, res) => {
   try {
     const { username } = req.body;
 
-    if (!username || username.length > 3) {
+    if (!username || username.length < 3) {
       return res
         .status(400)
         .json({ error: "Username must be at least 3 characters" });

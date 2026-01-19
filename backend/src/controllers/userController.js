@@ -4,20 +4,24 @@ import { generateUsername } from "../utils/generateUsername.js";
 
 const createUser = async (req, res) => {
   try {
-    const { username } = req.body;
+    let { username } = req.body;
 
     if (!username) {
-      username = generateUsername();
+        username = generateUsername();
+        let userExists = await User.findOne({ userName: username });
+        // Simple retry loop to ensure uniqueness for generated usernames
+        while (userExists) {
+            username = generateUsername();
+            userExists = await User.findOne({ userName: username });
+        }
+    } else {
+        const existingUser = await User.findOne({ userName: username });
+        if (existingUser) {
+            return res.status(400).json({ error: "Username already taken" });
+        }
     }
 
-    const user = await User.findOne({ username });
-
-    if (user) {
-      user = generateUsername();
-      user = await User.findOne({ username });
-    }
-
-    user = new User({ username });
+    const user = new User({ userName: username });
     await user.save();
 
     // Generate JWT
@@ -30,6 +34,7 @@ const createUser = async (req, res) => {
       token,
     });
   } catch (error) {
+    console.error("Error in createUser:", error);
     res.status(500).json({ error: "Server error" });
   }
 };
@@ -44,7 +49,7 @@ const updateUsername = async (req, res) => {
         .json({ error: "Username must be at least 3 characters" });
     }
 
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ userName: username });
 
     if (
       existingUser &&
@@ -53,7 +58,7 @@ const updateUsername = async (req, res) => {
       return res.status(400).json({ error: "Username already taken" });
     }
 
-    await User.findByIdAndUpdate(req.user._id, { username });
+    await User.findByIdAndUpdate(req.user._id, { userName: username });
 
     res.json({ username });
   } catch (error) {

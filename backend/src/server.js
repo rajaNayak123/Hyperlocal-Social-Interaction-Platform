@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import http from 'http'
-import socketIo from "socket.io"
+import { Server } from "socket.io";
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import helmet from "helmet"
@@ -17,7 +17,7 @@ import { router as messageRoute } from "./routes/messageRoutes.js"
 const app = express();
 const server = http.createServer(app)
 
-const io = socketIo(server, {
+const io = new Server(server, {
     cors: {
         origin: "*",
         methods: ["GET", "POST"]
@@ -33,9 +33,9 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
-app.use("api/user", userRouter)
-app.use("api/room", roomRouter)
-app.use("api/message", messageRoute)
+app.use("/api/user", userRouter);
+app.use("/api/room", roomRouter);
+app.use("/api/message", messageRoute);
 
 socketService(io);
 

@@ -43,4 +43,4 @@ const sanitizeMessage = [
   },
 ];
 
-export {sanitizeUser, sanitizeRoom, sanitizeMessage}
+export {sanitizeMessage, sanitizeUser, sanitizeRoom}

@@ -2,7 +2,7 @@ import express from "express"
 import { sendMessage, getMessage } from "../controllers/messageController.js"
 import { auth } from "../middleware/auth.js"
 import { messageLimiter } from "../middleware/rateLimit.js"
-import {sanitizeMessage} from "../middleware/rateLimit.js"
+import {sanitizeMessage} from "../middleware/sanitize.js"
 
 const router = express.Router()
 

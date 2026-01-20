@@ -15,7 +15,7 @@ const sendMessage = async (req, res) => {
     const message = new Message({
       roomId,
       userId: req.user._id,
-      username: req.user.username,
+      username: req.user.userName,
       text,
     });
 
@@ -27,11 +27,11 @@ const sendMessage = async (req, res) => {
   }
 };
 
-const getMessage = async () => {
+const getMessage = async (req, res) => {
   try {
     const { roomId } = req.params;
 
-    const messages = await Message.findById({ roomId })
+    const messages = await Message.find({ roomId })
       .populate("userId", "username")
       .sort({ createdAt: 1 })
       .limit(100);

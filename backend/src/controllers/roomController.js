@@ -35,8 +35,8 @@ const getNearbyRooms = async (req, res) => {
             type: "Point",
             coordinates: [parseFloat(longitude), parseFloat(latitude)],
           },
+          $maxDistance: 5000,
         },
-        $maxDistance: 5000,
       },
     }).limit(50);
 
